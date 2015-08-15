@@ -76,6 +76,22 @@ class PlayerCell(
     var x1 = this.position.x + speed * Math.sin(angle)
     var y1 = this.position.y + speed * Math.cos(angle)
 
+    // Check to ensure we're not passing the world border
+    if (x1 < config.borderLeft) {
+      x1 = config.borderLeft
+    }
+    if (x1 > config.borderRight) {
+      x1 = config.borderRight
+    }
+    if (y1 < config.borderTop) {
+      y1 = config.borderTop
+    }
+    if (y1 > config.borderBottom) {
+      y1 = config.borderBottom
+    }
+
+    val newPos = Position.toInt(x = x1, y = y1)
+
     // Collision check for other cells
     owner.cells.foreach(cell => {
       breakable {
@@ -115,21 +131,7 @@ class PlayerCell(
 
     gameServer.gameMode.onCellMove(x1.toInt, y1.toInt, this)
 
-    // Check to ensure we're not passing the world border
-    if (x1 < config.borderLeft) {
-      x1 = config.borderLeft
-    }
-    if (x1 > config.borderRight) {
-      x1 = config.borderRight
-    }
-    if (y1 < config.borderTop) {
-      y1 = config.borderTop
-    }
-    if (y1 > config.borderBottom) {
-      y1 = config.borderBottom
-    }
-
-    this.position = Position.toInt(x = x1, y = y1)
+    this.position = newPos
   }
 
   // Override
