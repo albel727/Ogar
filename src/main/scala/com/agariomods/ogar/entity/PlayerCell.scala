@@ -95,7 +95,7 @@ class PlayerCell(
         if((cell.recombineTicks > 0) || (this.recombineTicks > 0)) {
           // Cannot recombine - Collision with your own cells
           val collisionDist = cell.getSize + r // Minimum distance between the 2 cells
-          if(!this.simpleCollide(cell.position, collisionDist)) {
+          if(!this.simpleCollide(newPos, collisionDist)) {
             // Skip
             break() //continue
           }
