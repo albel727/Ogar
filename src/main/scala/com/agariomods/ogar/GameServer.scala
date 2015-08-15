@@ -332,8 +332,6 @@ class GameServer {
 
   def updateMoveEngine() {
     // Move player cells
-    val toRemove = new mutable.HashSet[Cell]
-
     // Do not move cells that have already been eaten or have collision turned off
     this.nodesPlayer.filter(null != _).foreach(cell => {
       val client = cell.owner.get
@@ -351,15 +349,9 @@ class GameServer {
         // Remove cell
         check.setKiller(cell)
 
-        // if we're deleting from this.nodesPlayer, fix outer loop variables; we need to update its length, and maybe 'i' too
-        if (check.cellType == CellTypes.Player) {
-          this.removeNode(check)
-        } else {
-          toRemove += check
-        }
+        this.removeNode(check)
       })
     })
-    toRemove.foreach(this.removeNode)
 
     // A system to move cells not controlled by players (ex. viruses, ejected mass)
 
