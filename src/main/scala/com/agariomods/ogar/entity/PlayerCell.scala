@@ -48,29 +48,22 @@ class PlayerCell(
 
   // Movement
 
-  def calcMove(ax2 : Double, ay2 : Double, gameServer : GameServer) {
-    var x2 = ax2
-    var y2 = ay2
+  def calcMove(mousePos : Position, gameServer : GameServer) {
     val owner = this.owner.get
 
     val config = gameServer.config
     val r = this.getSize // Cell radius
 
-    owner.mouseCells.get(this.nodeId).foreach(specialPos => {
-      x2 = specialPos.x
-      y2 = specialPos.y
-    })
-
     // Get angle
-    val deltaY = y2 - this.position.y
-    val deltaX = x2 - this.position.x
+    val deltaX = mousePos.x - this.position.x
+    val deltaY = mousePos.y - this.position.y
     val angle = Math.atan2(deltaX, deltaY)
     if(angle.isNaN) {
       return
     }
 
     // Distance between mouse pointer and cell
-    var dist = this.getDist(this.position.x, this.position.y, x2, y2)
+    var dist = this.getDist(this.position.x, this.position.y, mousePos.x, mousePos.y)
     val speed = Math.min(this.getSpeed, dist)
 
     var x1 = this.position.x + speed * Math.sin(angle)

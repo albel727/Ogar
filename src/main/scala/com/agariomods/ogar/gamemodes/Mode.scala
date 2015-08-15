@@ -286,18 +286,11 @@ trait Mode {
         Breaks.break() // continue
       }
 
-      // Get individual cell coords if they exist
-      var y2 = client.mouse.y
-      var x2 = client.mouse.x
-      if(client.mouseCells.contains(cell.nodeId)) {
-        val specialPos = client.mouseCells(cell.nodeId)
-        x2 = specialPos.x
-        y2 = specialPos.y
-      }
+      val mouseTarget = client.mouseCells.getOrElse(cell.nodeId, client.mouse)
 
       // Get angle
-      val deltaY = y2 - cell.position.y
-      val deltaX = x2 - cell.position.x
+      val deltaX = mouseTarget.x - cell.position.x
+      val deltaY = mouseTarget.y - cell.position.y
       val angle = Math.atan2(deltaX, deltaY)
 
       // Get starting position
