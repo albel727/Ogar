@@ -16,7 +16,7 @@ See [SBT installation instructions](http://www.scala-sbt.org/0.13/tutorial/Setup
 
 Manual:
 ```sh
-~$ git clone git://github.com/albel727/Scala-Ogar.git Scala-Ogar
+~$ git clone https://github.com/albel727/Scala-Ogar.git
 ~$ cd Scala-Ogar
 ~$ sbt run
 ```
