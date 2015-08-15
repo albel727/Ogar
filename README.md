@@ -1,5 +1,5 @@
-# Ogar
-A fully functional open source Agar.io server implementation, written in Node.js. Ogar is designed to be used with the latest Agar.io client.
+# Scala Ogar
+A fully functional open source Agar.io server implementation, written in Scala. Ogar is designed to be used with the latest Agar.io client.
 
 ### Official Website
 The official website for the Ogar Project is [ogarproject.com](http://ogarproject.com). You can register on our forums to chat with other Ogar users, get support, advertise your server, and more.
@@ -10,24 +10,18 @@ If you've purchased a copy of Ogar, you've probably been ripped off. [This post 
 ## Obtaining and Using
 If you are on Windows, you can download the latest binary build of Ogar [from this page](http://dl.ogarproject.com/). The binary is the easiest way to get started running an Ogar server. If you'd like to tinker with the source code, you can follow the instructions below (and slightly modify them) to run the source on Windows.
 
-As Ogar is written in Node.js, you must have Node.js and its "ws" module installed to use it (unless you are using the Windows binary). You can usually download Node using your distribution's package manager (for *nix-like systems), or from [the Node website](http://nodejs.org). To install the "ws" module that is required, open up your system command line (cmd for windows, terminal for mac) and type "npm install ws". If you are on Linux, you can use the install script which would also automatically install node.js and ws. 
+As Ogar is written in Scala, you must have it and/or Simple Build Tool to use it.
+
+See [SBT installation instructions](http://www.scala-sbt.org/0.13/tutorial/Setup.html) on how to obtain it.
 
 Manual:
 ```sh
-~$ git clone git://github.com/OgarProject/Ogar.git Ogar
-~$ npm install ws
-~$ node Ogar
+~$ git clone git://github.com/albel727/Scala-Ogar.git Scala-Ogar
+~$ cd Scala-Ogar
+~$ sbt run
 ```
-Using the install script:
-```sh
-~$ sudo ogar-linux-script.sh install /your/preferred/directory
-~$ sudo -u ogar -H /bin/sh -c "cd; /bin/node src/index.js"
-```
-Using ```sudo -u ogar -H /bin/sh -c "cd; /bin/node src/index.js" ``` to launch the server increases security by running the process as an unprivileged, dedicated user with a limited shell and it is recommended to do so.
-
 Currently, Ogar listens on the following addresses and ports:
-* *:80 - for the master server
-* *:443 - for the game server
+* *:443 - for the master server (the interface and port are configurable)
 
 Please note that on some systems, you may have to run the process as root or otherwise elevate your privileges to allow the process to listen on the needed ports. **If you are getting an EADDRINUSE error, it means that the port required to run Ogar is being used. Usually, Skype is the culprit. To solve this, either close out skype, or change the serverPort value in gameserver.ini to a different port. You will have to change your connection ip to "127.0.0.1:PORT"**
 
@@ -94,9 +88,3 @@ The current available console commands are listed here. Command names are not ca
    * Teleports the specified player to the specified coordinates.
  - Virus [X position] [Y position] [Mass]
    * Spawns a virus cell at those coordinates. If a mass value is not specified, then the server will default to "virusStartMass" in the config.
-
-## Contributing
-Please see [CONTRIBUTING.md](https://github.com/OgarProject/Ogar/blob/master/CONTRIBUTING.md) for contribution guidelines.
-
-## License
-Please see [LICENSE.md](https://github.com/OgarProject/Ogar/blob/master/LICENSE.md).

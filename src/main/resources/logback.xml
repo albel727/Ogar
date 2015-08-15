@@ -1,0 +1,65 @@
+<configuration>
+    <appender name="STDERR" class="ch.qos.logback.core.ConsoleAppender">
+        <target>System.err</target>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <encoder>
+            <!--
+                <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+                <pattern>%date{ISO8601} %-5level %logger{36} %X{akkaSource} - %msg%n</pattern>
+            -->
+            <pattern>%X{akkaTimestamp} %-5level %logger{36} %X{akkaSource} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%X{akkaTimestamp} %-5level %logger{36} %X{akkaSource} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="IP_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>ip.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder>
+            <pattern>%date{ISO8601} %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="CONSOLE_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>console.log</file>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <encoder>
+            <pattern>%date{ISO8601} >%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- target to STDERR but disable everything by default -->
+    <root level="OFF">
+        <appender-ref ref="STDERR" />
+    </root>
+
+    <!-- but log warnings and errors from our app to STDERR -->
+    <logger name="com.agariomods.ogar" level="WARN"/>
+
+    <!-- also log INFO level messages for Debug gamemode to STDOUT -->
+    <logger name="com.agariomods.ogar.gamemodes.Debug" level="INFO">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <!-- also log INFO level connection messages to IP_FILE -->
+    <logger name="com.agariomods.ogar.net.WebSocketWorker" level="INFO">
+        <appender-ref ref="IP_FILE" />
+    </logger>
+
+    <!-- also log INFO level console commands issued by user to CONSOLE_FILE -->
+    <logger name="com.agariomods.ogar.OgarConsole" level="INFO">
+        <appender-ref ref="CONSOLE_FILE" />
+    </logger>
+
+</configuration>
