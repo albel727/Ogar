@@ -18,9 +18,11 @@ object IterExt {
     // Adds the player and sorts the leaderboard
     var len = leaderboard.size - 1
     var loop = true
+    val playerScore = f(player)
+
     while ((len >= 0) && loop) {
       // Start from the bottom of the leaderboard
-      if(ord.gteq(f(player), f(leaderboard(len)))) {
+      if(ord.lteq(playerScore, f(leaderboard(len)))) {
         leaderboard.insert(len + 1, player)
         loop = false // End the loop if a spot is found
       }
